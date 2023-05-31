@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Validation Example</title>
+
+  <style>
+    .error {
+        text-align: center;
+        color: red;
+    }
+  </style>
+
+</head>
+
+<body style="background-color: #000;">
+
+  <h1 style="text-align: center; margin-top: 150px; color: aqua;">Form Validation Example</h1>
+  
+    <center>
+        <form id="myForm" onsubmit="return validateForm()"  style="background-color: aqua; padding: 100px; width: 400px; text-align: left;">
+
+            <label for="name" style="font-size: 30px; margin-bottom: 20px;">Name : </label>
+            <input type="text" id="name" name="name" style=" margin-bottom: 20px; width: 300px; height: 30px; padding:0 10px; border: 2px solid #000;" required/><br>
+            
+            <label for="phoneNumber" style="font-size: 30px; margin-bottom: 20px;">Telephone : </label>
+            <input type="text" id="phoneNumber" name="phoneNumber"  style=" margin-bottom: 20px; width: 300px; height: 30px; padding:0 10px; border: 2px solid #000;" required/><br>
+            
+            <input type="submit" value="SUBMIT" style="height: 30px; width: 150px; font-size: 20px; bottom: 2px solid #000;"/>
+
+        </form>
+    </center>
+
+  <div id="validationResult"></div>
+
+</body>
+
+  <script>
+
+    function validateForm() {
+      const name = document.getElementById("name").value;
+      const nameError = (name.length < 3 || name.length > 20) ? "Name should be between 3 and 20 characters." : "";
+      
+      const phoneNumber = document.getElementById("phoneNumber").value;
+      const phoneError = /^\d{10}$/.test(phoneNumber) ? "" : "Invalid phone number. Please enter a 10-digit number.";
+
+      const errorMessage = (nameError || phoneError) ? nameError + " " + phoneError : "";
+      showError(errorMessage.trim());
+      return false;
+    }
+
+    function showError(errorMessage) {
+      const validationResultDiv = document.getElementById("validationResult");
+      validationResultDiv.innerHTML = errorMessage ? "<h2 class='error'>" + errorMessage + "</h2>" : "";
+    }
+  </script>
+
+</html>
